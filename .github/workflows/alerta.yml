@@ -1,0 +1,24 @@
+name: Notificacion a ITLA
+
+# Se activa cuando haces push a la rama main
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  notificar:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Descargar tu código
+    - name: Checkout del codigo
+      uses: actions/checkout@v4
+
+    # 2. Ejecutar el programa para probar que no tiene errores
+    - name: Ejecutar Script
+      run: node hola.js
+
+    # 3. Enviar la alerta a la web
+    - name: Enviar notificacion a ntfy.sh
+      # CURL es un comando para enviar datos a internet desde la terminal
+      run: curl -d "Hola, soy Rafael Urbaez. He actualizado mi repositorio con GitHub Actions." ntfy.sh/devops-itla
